@@ -6,13 +6,17 @@ export const useSelectHouseAndAncestryStore = () => {
     selectedAncestry,
     selectedHouse,
     setSelectedHouse,
-    setSelectedAncestry
+    setSelectedAncestry,
+    search,
+    setSearch
   } = useContext(SelectHouseAndAncestryContext)
 
   return {
     selectedAncestry,
     selectedHouse,
     setSelectedHouse,
-    setSelectedAncestry
+    setSelectedAncestry,
+    search,
+    setSearch
   }
 }

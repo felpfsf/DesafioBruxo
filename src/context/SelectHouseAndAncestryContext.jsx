@@ -5,18 +5,23 @@ export const SelectHouseAndAncestryContext = createContext({
   selectedAncestry: 'all',
   setSelectedHouse: () => { },
   setSelectedAncestry: () => { },
+  search: '',
+  setSearch: () => { }
 })
 
 export const SelectHouseAndAncestryProvider = ({ children }) => {
   const [selectedHouse, setSelectedHouse] = useState('all')
   const [selectedAncestry, setSelectedAncestry] = useState('all')
+  const [search, setSearch] = useState('')
 
   return (
     <SelectHouseAndAncestryContext.Provider value={{
       selectedHouse,
       selectedAncestry,
       setSelectedHouse,
-      setSelectedAncestry
+      setSelectedAncestry,
+      search,
+      setSearch
     }}>
       {children}
     </SelectHouseAndAncestryContext.Provider>
