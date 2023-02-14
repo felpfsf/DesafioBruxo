@@ -1,9 +1,9 @@
 import { useContext, useState } from "react"
 import styled from "styled-components"
-import { SelectHouseAndAncestryContext } from "../App"
 import { CharacterCard } from "../components/CharacterCard"
 import { Loading } from "../components/Loading/Loading"
 import { useFecthCharacters } from "../hooks/useFetchCharacters"
+import { useSelectHouseAndAncestryStore } from "../hooks/useSelectHouseAndAncestryStore"
 
 export const Home = () => {
   const { data: characters, error, loading } = useFecthCharacters('https://hp-api.onrender.com/api/characters')
@@ -23,10 +23,10 @@ export const Home = () => {
     )
   }
 
-  const { selectedAncestry, selectedHouse } = useContext(SelectHouseAndAncestryContext)
+  const { selectedAncestry, selectedHouse } = useSelectHouseAndAncestryStore()
 
   console.log('Home ->', selectedHouse)
-  // console.log('Home ->', selectedAncestry)
+  console.log('Home ->', selectedAncestry)
 
   return (
     <HomeContainer>

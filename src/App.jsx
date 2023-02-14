@@ -1,33 +1,20 @@
-import { createContext, useState } from "react"
-import { Navbar } from "./components/Navbar"
-import { ScrollToTop } from "./components/ScrollToTop"
-import { Home } from "./pages/Home"
-import { GlobalStyle } from "./theme/Global"
+import { SelectHouseAndAncestryProvider } from "./context/SelectHouseAndAncestryContext"
+
 import { Theme } from "./theme/Theme"
+import { GlobalStyle } from "./theme/Global"
 
-export const SelectHouseAndAncestryContext = createContext({
-  selectedHouse: 'all',
-  selectedAncestry: 'all'
-})
-
-const SelectHouseAndAncestryProvider = ({ selectedHouse, selectedAncestry, children }) => {
-  return (
-    <SelectHouseAndAncestryContext.Provider value={{ selectedHouse, selectedAncestry }}>
-      {children}
-    </SelectHouseAndAncestryContext.Provider>
-  )
-}
+import { ScrollToTop } from "./components/ScrollToTop"
+import { Navbar } from "./components/Navbar"
+import { Home } from "./pages/Home"
 
 function App() {
-  const [selectedHouse, setSelectedHouse] = useState('all')
-  const [selectedAncestry, setSelectedAncestry] = useState('all')
 
   return (
     <Theme>
       <GlobalStyle />
       <ScrollToTop />
-      <SelectHouseAndAncestryProvider selectedHouse={selectedHouse} selectedAncestry={selectedAncestry}>
-        <Navbar setSelectedHouse={setSelectedHouse} setSelectedAncestry={setSelectedAncestry} selectedHouse={selectedHouse} selectedAncestry={selectedAncestry} />
+      <SelectHouseAndAncestryProvider>
+        <Navbar />
         <Home />
       </SelectHouseAndAncestryProvider>
     </Theme>
