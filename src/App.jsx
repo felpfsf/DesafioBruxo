@@ -1,11 +1,14 @@
+import { ScrollToTop } from "./components/ScrollToTop"
+import { Home } from "./pages/Home"
 import { GlobalStyle } from "./theme/Global"
 import { Theme } from "./theme/Theme"
 
 function App() {
   return (
     <Theme>
-      <GlobalStyle/>
-      <h1>App</h1>
+      <GlobalStyle />
+      <ScrollToTop />
+      <Home />
     </Theme>
   )
 }
