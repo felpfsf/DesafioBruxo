@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const CharacterCard = ({ character }) => {
-  const { ancestry, house, image, name, wand } = character
-  console.log(wand)
+  const { alive, ancestry, house, image, name, wand } = character
+  // console.log(ancestry)
   return (
     <CardContainer house={house}>
       <ProfilePicture house={house}>
