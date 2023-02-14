@@ -18,18 +18,18 @@ export const ScrollToTop = () => {
     }
   }, [])
 
-  const scrollToTop = () => {
+  const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
-    <div style={{ position: 'relative' }}>
+    <>
       {showButton ?
-        <ScrollToTopButton onClick={scrollToTop}>
+        <ScrollToTopButton onClick={handleScrollToTop}>
           Top
         </ScrollToTopButton>
         : null}
-    </div>
+    </>
   )
 }
 
