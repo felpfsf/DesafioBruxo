@@ -1,36 +1,30 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
+import { useSelectHouseAndAncestryStore } from "../hooks/useSelectHouseAndAncestryStore"
+import { useFecthCharacters } from "../hooks/useFetchCharacters"
+
 import styled from "styled-components"
 import { CharacterCard } from "../components/CharacterCard"
 import { Loading } from "../components/Loading/Loading"
-import { useFecthCharacters } from "../hooks/useFetchCharacters"
-import { useSelectHouseAndAncestryStore } from "../hooks/useSelectHouseAndAncestryStore"
+import { ErrorMessage } from "../components/ErrorMessage/ErrorMessage"
 
 export const Home = () => {
-  const { data: characters, error, loading } = useFecthCharacters('https://hp-api.onrender.com/api/characters')
-
+  const { data: characters, loading } = useFecthCharacters('https://hp-api.onrender.com/api/characters')
   const [charactersToShow, setCharactersToShow] = useState(10)
+  const [filteredCharacters, setFilteredCharacters] = useState([])
 
   const handleShowMore = () => {
     setCharactersToShow(charactersToShow + 10)
   }
 
-  // const char = characters[2]
-  // console.log(char)
-
-
-
-
-  const { selectedAncestry, selectedHouse } = useSelectHouseAndAncestryStore()
-  const [filteredCharacters, setFilteredCharacters] = useState([])
-
-  // console.log('Home ->', selectedHouse)
-  // console.log('Home ->', selectedAncestry)
+  const { selectedAncestry, selectedHouse, search } = useSelectHouseAndAncestryStore()
 
   useEffect(() => {
     setFilteredCharacters(characters
       .filter(character => selectedHouse === 'all' || character.house === selectedHouse)
-      .filter(character => selectedAncestry === 'all' || character.ancestry === selectedAncestry))
-  }, [characters, selectedHouse, selectedAncestry])
+      .filter(character => selectedAncestry === 'all' || character.ancestry === selectedAncestry)
+      .filter(character => character.name.toLowerCase().includes(search.toLowerCase()))
+    )
+  }, [characters, selectedHouse, selectedAncestry, search])
 
   if (loading) {
     return (
@@ -42,10 +36,13 @@ export const Home = () => {
     <HomeContainer>
 
       <CharactersList>
-        {filteredCharacters
-          .slice(0, charactersToShow).map(character => (
-            <CharacterCard key={character.id} character={character} />
-          ))}
+        {filteredCharacters.length ?
+          filteredCharacters
+            .slice(0, charactersToShow).map(character => (
+              <CharacterCard key={character.id} character={character} />
+            )) :
+          <ErrorMessage />
+        }
       </CharactersList>
       <button onClick={handleShowMore} style={{ display: charactersToShow >= filteredCharacters.length ? 'none' : 'block' }}>Exibir Mais</button>
     </HomeContainer>
