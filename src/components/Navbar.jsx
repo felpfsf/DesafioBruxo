@@ -1,6 +1,8 @@
 import styled from "styled-components"
+import { useSelectHouseAndAncestryStore } from "../hooks/useSelectHouseAndAncestryStore"
 
-export const Navbar = ({ selectedHouse, setSelectedHouse, selectedAncestry, setSelectedAncestry }) => {
+export const Navbar = () => {
+  const { selectedAncestry, selectedHouse, setSelectedAncestry, setSelectedHouse } = useSelectHouseAndAncestryStore()
 
   const handleSelectedHouse = (e) => {
     console.log(e.target.value)
