@@ -27,7 +27,13 @@ export const CustomSelect = ({ options, currentValue, handleChangeValue, id }) =
 
   return (
     <SelectContainer id={id}>
-      <SelectLabelButton onClick={handleOpenSelect}>{currentValue === '' ? 'Selecione' : currentValue}</SelectLabelButton>
+      <SelectLabelButton onClick={handleOpenSelect}>
+        {currentValue === '' ?
+          id.includes('house') ? 'Casa' : 'Ancestralidade'
+          :
+          currentValue
+        }
+      </SelectLabelButton>
       <DropdownStyle isVisible={open}>
         {options.map(({ id, value, label }) => (
           <DropdownItem key={`${id}_${value}`} value={value} onClick={() => handleOnClick(value, label)}>{label}</DropdownItem>
