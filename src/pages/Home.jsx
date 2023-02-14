@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { CharacterCard } from "../components/CharacterCard"
 import { Loading } from "../components/Loading/Loading"
@@ -17,29 +17,37 @@ export const Home = () => {
   // const char = characters[2]
   // console.log(char)
 
+
+
+
+  const { selectedAncestry, selectedHouse } = useSelectHouseAndAncestryStore()
+  const [filteredCharacters, setFilteredCharacters] = useState([])
+
+  // console.log('Home ->', selectedHouse)
+  // console.log('Home ->', selectedAncestry)
+
+  useEffect(() => {
+    setFilteredCharacters(characters
+      .filter(character => selectedHouse === 'all' || character.house === selectedHouse)
+      .filter(character => selectedAncestry === 'all' || character.ancestry === selectedAncestry))
+  }, [characters, selectedHouse, selectedAncestry])
+
   if (loading) {
     return (
       <Loading />
     )
   }
 
-  const { selectedAncestry, selectedHouse } = useSelectHouseAndAncestryStore()
-
-  console.log('Home ->', selectedHouse)
-  console.log('Home ->', selectedAncestry)
-
   return (
     <HomeContainer>
 
       <CharactersList>
-        {characters
-          .filter(character => selectedHouse === 'all' || character.house === selectedHouse)
-          .filter(character => selectedAncestry === 'all' || character.ancestry === selectedAncestry)
+        {filteredCharacters
           .slice(0, charactersToShow).map(character => (
             <CharacterCard key={character.id} character={character} />
           ))}
       </CharactersList>
-      <button onClick={handleShowMore}>Exibir Mais</button>
+      <button onClick={handleShowMore} style={{ display: charactersToShow >= filteredCharacters.length ? 'none' : 'block' }}>Exibir Mais</button>
     </HomeContainer>
   )
 }
