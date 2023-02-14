@@ -47,9 +47,13 @@ const globalBreakpoints = {
 
 const colors = {
   Gryffindor: '#740001',
+  GryffindorAccent: '#D3A625',
   Slytherin: '#1A472A',
-  Ravenclaw: '#045FB4',
+  SlytherinAccent: '#5D5D5D',
+  Ravenclaw: '#0E1A40',
+  RavenclawAccent: '#946B2D',
   Hufflepuff: '#ECB939',
+  HufflepuffAccent: '#000000',
   default: '#7f7f7f',
   text: '#fff',
   background: '#242633'
