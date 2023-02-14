@@ -1,8 +1,12 @@
+import { GlobalStyle } from "./theme/Global"
+import { Theme } from "./theme/Theme"
+
 function App() {
   return (
-    <div>
+    <Theme>
+      <GlobalStyle/>
       <h1>App</h1>
-    </div>
+    </Theme>
   )
 }
 
