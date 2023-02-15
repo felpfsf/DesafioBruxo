@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react"
-import styled from "styled-components"
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { SlArrowUpCircle } from 'react-icons/sl'
+import { VscArrowUp } from 'react-icons/vsc'
 
 export const ScrollToTop = () => {
   const [showButton, setShowButton] = useState(false)
@@ -26,7 +28,7 @@ export const ScrollToTop = () => {
     <>
       {showButton ?
         <ScrollToTopButton onClick={handleScrollToTop}>
-          Top
+          <VscArrowUp style={{ width: '100%', height: '100%' }} color={'goldenrod'} />
         </ScrollToTopButton>
         : null}
     </>
@@ -34,15 +36,27 @@ export const ScrollToTop = () => {
 }
 
 const ScrollToTopButton = styled.button`
-position: fixed;
-bottom: 40px;
-right: 32px;
-z-index: 10;
+  position: fixed;
+  bottom: 40px;
+  right: 32px;
+  z-index: 10;
 
-width: 3rem;
-height: 3rem;
+  width: 3rem;
+  height: 3rem;
 
-border-radius: 100%;
+  border-radius: 100%;
+  border: none;
 
-cursor: pointer;
+  cursor: pointer;
+
+  animation: translate 0.5s ease-in-out;
+
+  @keyframes translate {
+  0% {
+    transform: translateY(100%);
+  }  
+  100% {
+    transform: translateY(0);
+  }  
+}
 `
