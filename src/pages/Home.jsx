@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react"
-import { useSelectHouseAndAncestryStore } from "../hooks/useSelectHouseAndAncestryStore"
-import { useFecthCharacters } from "../hooks/useFetchCharacters"
+import { useEffect, useState } from 'react'
+import { useSelectHouseAndAncestryStore } from '../hooks/useSelectHouseAndAncestryStore'
+import { useFecthCharacters } from '../hooks/useFetchCharacters'
 
-import styled from "styled-components"
-import { CharacterCard } from "../components/CharacterCard"
-import { Loading } from "../components/Loading/Loading"
-import { ErrorMessage } from "../components/ErrorMessage/ErrorMessage"
+import styled from 'styled-components'
+import { CharacterCard } from '../components/CharacterCard'
+import { Loading } from '../components/Loading/Loading'
+import { ErrorMessage } from '../components/ErrorMessage/ErrorMessage'
 
 export const Home = () => {
-  const { data: characters, loading } = useFecthCharacters('https://hp-api.onrender.com/api/characters')
+  const { data: characters, loading } = useFecthCharacters(
+    'https://hp-api.onrender.com/api/characters'
+  )
   const [charactersToShow, setCharactersToShow] = useState(10)
   const [filteredCharacters, setFilteredCharacters] = useState([])
 
@@ -16,35 +18,52 @@ export const Home = () => {
     setCharactersToShow(charactersToShow + 10)
   }
 
-  const { selectedAncestry, selectedHouse, search } = useSelectHouseAndAncestryStore()
+  const { selectedAncestry, selectedHouse, search } =
+    useSelectHouseAndAncestryStore()
 
   useEffect(() => {
-    setFilteredCharacters(characters
-      .filter(character => selectedHouse === 'all' || character.house === selectedHouse)
-      .filter(character => selectedAncestry === 'all' || character.ancestry === selectedAncestry)
-      .filter(character => character.name.toLowerCase().includes(search.toLowerCase()))
+    setFilteredCharacters(
+      characters
+        .filter(
+          character =>
+            selectedHouse === 'all' || character.house === selectedHouse
+        )
+        .filter(
+          character =>
+            selectedAncestry === 'all' ||
+            character.ancestry === selectedAncestry
+        )
+        .filter(character =>
+          character.name.toLowerCase().includes(search.toLowerCase())
+        )
     )
   }, [characters, selectedHouse, selectedAncestry, search])
 
   if (loading) {
-    return (
-      <Loading />
-    )
+    return <Loading />
   }
 
   return (
     <HomeContainer>
-
       <CharactersList>
-        {filteredCharacters.length ?
+        {filteredCharacters.length ? (
           filteredCharacters
-            .slice(0, charactersToShow).map(character => (
+            .slice(0, charactersToShow)
+            .map(character => (
               <CharacterCard key={character.id} character={character} />
-            )) :
+            ))
+        ) : (
           <ErrorMessage />
-        }
+        )}
       </CharactersList>
-      <button onClick={handleShowMore} style={{ display: charactersToShow >= filteredCharacters.length ? 'none' : 'block' }}>Exibir Mais</button>
+      <ShowMoreButton
+        onClick={handleShowMore}
+        style={{
+          display:
+            charactersToShow >= filteredCharacters.length ? 'none' : 'block'
+        }}>
+        Exibir Mais
+      </ShowMoreButton>
     </HomeContainer>
   )
 }
@@ -69,4 +88,20 @@ const CharactersList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+`
+
+const ShowMoreButton = styled.button`
+  color: ${({ theme }) => theme.text};
+  font-size: 18px;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+
+  background-color: transparent;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 8px 16px;
+  
+  cursor: pointer;
 `
