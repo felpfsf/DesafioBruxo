@@ -6,6 +6,7 @@ import { GlobalStyle } from "./theme/Global"
 import { ScrollToTop } from "./components/ScrollToTop"
 import { Navbar } from "./components/Navbar"
 import { Home } from "./pages/Home"
+import { Footer } from "./components/Footer"
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Navbar />
         <Home />
       </SelectHouseAndAncestryProvider>
+      <Footer/>
     </Theme>
   )
 }

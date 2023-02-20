@@ -7,7 +7,7 @@ export const Search = ({ value, handleSearch }) => {
 }
 
 const Input = styled.input`
-  width: 10rem;
+  width: 8rem;
 
   padding: .375rem .5rem;
 
