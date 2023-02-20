@@ -1,44 +1,57 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const ErrorMessage = () => {
   return (
     <ErrorContainer>
-      <div>
+      <ImageContainer>
         <img src='/images/sorting_hat-icon.png' alt='' />
-      </div>
+      </ImageContainer>
       <Message>Nenhum personagem encontrado</Message>
     </ErrorContainer>
-  )
-}
+  );
+};
 
 const ErrorContainer = styled.div`
-  position: relative;
+  height: calc(100vh - 422px);
 
   margin: 2rem auto;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  & div {
-    width: 50%;
+  @media ${({ theme }) => theme.devices.desktop} {
+    height: calc(100vh - 391px);
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 64px;
   }
+`;
+
+const ImageContainer = styled.div`
+  width: 50%;
 
   & img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-`
+
+  @media ${({ theme }) => theme.devices.desktop} {
+    width: 75%;
+  }
+`;
+
 const Message = styled.h1`
-  position: absolute;
   font-weight: 600;
   font-size: 18px;
 
-  bottom: -16px;
-
   @media ${({ theme }) => theme.devices.desktop} {
-    position: relative;
-    font-size: ${({ theme }) => theme.large};
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    text-align: center;
   }
-`
+`;

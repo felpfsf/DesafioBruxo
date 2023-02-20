@@ -68,6 +68,7 @@ const DropdownStyle = styled.div`
   position: absolute;
   top: 4;
   left: 0;
+  z-index: 2;
 
   max-height: 40vmax;
   min-width: 8rem;
