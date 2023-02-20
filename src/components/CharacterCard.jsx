@@ -1,42 +1,43 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const CharacterCard = ({ character }) => {
-  const { alive, ancestry, house, image, name, wand } = character
-  // console.log(ancestry)
+  const { alive, ancestry, house, image, name, wand } = character;
+  // console.log(wand.core)
+  const capitalize = (str) => {
+    return str.replace(/\b\w/g, char => char.toUpperCase())
+  }
+
+  const core = wand.core && capitalize(wand.core)
   return (
     <CardContainer house={house}>
       <ProfilePicture house={house}>
         <img
-          src={image ? image : '/images/wizard.png'}
+          src={image ? image : "/images/wizard.png"}
           alt={`Foto de ${name}`}
         />
       </ProfilePicture>
       <CharacterInfo>
         <h1>{name}</h1>
+        <h2>{house}</h2>
         <p>{ancestry}</p>
-      </CharacterInfo>
-      {wand.wood != '' || wand.core != '' || wand.length != null ?
-        (
+        {wand.wood != "" || wand.core != "" || wand.length != null ? (
           <WandContainer>
             <h1>Wand</h1>
-
             <div>
               <span>{wand.wood && wand.wood}</span>
-              <span>{wand.core && wand.core}</span>
+              <span>{core}</span>
               <span>{wand.length && `${wand.length}' inches`}</span>
             </div>
           </WandContainer>
-        )
-        :
-        null
-      }
+        ) : null}
+      </CharacterInfo>
     </CardContainer>
-  )
-}
+  );
+};
 
 const CardContainer = styled.div`
-  width: 18.75rem /* 300px -> 18.75rem */;
-  height: 25rem /* 400px -> 25rem */;
+  width: 100%;
+  height: auto;
 
   color: ${({ theme }) => theme.text};
 
@@ -51,14 +52,20 @@ const CardContainer = styled.div`
   box-shadow: 2px 2px 10px #333;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  /* gap: 4px; */
-`
+
+  @media ${({ theme }) => theme.devices.tablet} {
+    width: 18.75rem;
+    height: 25rem;
+
+    flex-direction: column;
+    justify-content: center;
+  }
+`;
 
 const ProfilePicture = styled.div`
-  width: 70%;
+  width: 20%;
   height: 70%;
 
   /* margin-bottom: 8px; */
@@ -77,11 +84,16 @@ const ProfilePicture = styled.div`
     height: 100%;
     object-fit: cover;
   }
-`
+
+  @media ${({ theme }) => theme.devices.tablet} {
+    width: 70%;
+    height: 70%;
+  }
+`;
 
 const CharacterInfo = styled.div`
   text-align: center;
-  
+
   margin-top: 4px;
   margin-bottom: 8px;
 
@@ -89,42 +101,55 @@ const CharacterInfo = styled.div`
     font-size: 1.5rem;
     font-weight: 600;
   }
+
+  & h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
   & p {
     font-size: 12px;
+    text-transform: capitalize;
   }
-`
+
+  flex: 1;
+`;
 
 const WandContainer = styled.div`
   position: relative;
-  
+
   margin-top: 8px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 4px;
 
-  ::before {
-    content: '';
-    position: absolute;
+  @media ${({ theme }) => theme.devices.tablet} {
+    gap: 8px;
+    ::before {
+      content: "";
+      position: absolute;
 
-    top: -6px;
+      top: -6px;
 
-    width: 100%;
-    height:1px;
-    
-    background-color: rgb(240 248 255 /.4);
+      width: 100%;
+      height: 1px;
+
+      background-color: rgb(240 248 255 /0.4);
+    }
   }
 
   & h1 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
   }
 
-  & span {
+  & span, span::first-letter {
+    font-size: 14px;
     text-transform: capitalize;
 
     margin-left: 8px;
   }
-`
+`;
